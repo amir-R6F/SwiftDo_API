@@ -10,8 +10,9 @@ class TodoController extends Controller
 {
     public function get_todos()
     {
-        $todos = Todo::all();
-        return response()->json(['todos' => $todos, 'status' => 200], 200);
+        $all = Todo::all()->count();
+        $done = Todo::where('status','1')->count();
+        return response()->json(['data' => ['all' => $all, 'done' => $done], 'status' => 200], 200);
     }
 
     public function new_todo(Request $request)
